@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:have_it/constants.dart';
+import 'package:have_it/util/habit_tile.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -21,6 +22,14 @@ class _HomeState extends State<Home> {
           fontSize: 30,
           fontWeight: FontWeight.bold,
         ),),
+      ),
+      body: Column(
+        children: [
+          HabitTile(),
+          HabitTile(),
+          HabitTile(),
+          HabitTile(),
+        ],
       ),
     );
   }
