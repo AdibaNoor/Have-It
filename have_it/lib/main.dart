@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:have_it/Screens/slide_page.dart';
 
 import 'Screens/Home.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         statusBarColor: Colors.transparent,systemNavigationBarColor: Colors.transparent));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: SlidePage(),
     );
   }
 }
