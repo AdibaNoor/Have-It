@@ -31,7 +31,11 @@ class HabitTile extends StatelessWidget {
     }
     return min + ':' + sec;
   }
+// percentage calculation
 
+  double PercentCompleted(){
+    return timeSpent/(timeGoal*60);
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(padding: EdgeInsets.only(left: 20,right: 20,top: 20),
@@ -55,8 +59,8 @@ class HabitTile extends StatelessWidget {
                    children: [
                      CircularPercentIndicator(
                        radius: 30,
-                       percent: 0.6,
-                       lineWidth: 10,
+                       lineWidth: 9,
+                       percent: PercentCompleted()< 1? PercentCompleted(): 1,
                        progressColor: sccolor,
                        backgroundColor: trcolor,
                      ),
@@ -71,7 +75,8 @@ class HabitTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(habitName,style: TextStyle(fontSize: 28,fontWeight: FontWeight.w500,color: fscolor),),
-                  Text(convertToMinSec(timeSpent)+'/'+timeGoal.toString(),
+                  Text(convertToMinSec(timeSpent)+'/'+timeGoal.toString()
+                      +' = '+ (PercentCompleted()*100).toStringAsFixed(0)+'%',
                     style: TextStyle(fontSize: 18,fontWeight: FontWeight.w300,color: fscolor),),
                 ],
               ),
