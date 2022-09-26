@@ -18,6 +18,20 @@ class HabitTile extends StatelessWidget {
     required this.timeGoal,
     required this.habitStrted}) : super(key: key);
 
+  //converting timeSpent time into minute:sec format
+  String convertToMinSec(int totalSec){
+    String sec = (totalSec % 60).toString();
+    String min = (totalSec/60).toStringAsFixed(4);
+    if(sec.length ==1){
+      sec = '0'+sec;
+    }
+
+    if(min[1] == '.'){
+      min = min.substring(0,1);
+    }
+    return min + ':' + sec;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(padding: EdgeInsets.only(left: 20,right: 20,top: 20),
@@ -57,7 +71,7 @@ class HabitTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(habitName,style: TextStyle(fontSize: 28,fontWeight: FontWeight.w500,color: fscolor),),
-                  Text(timeSpent.toString()+'/'+timeGoal.toString(),
+                  Text(convertToMinSec(timeSpent)+'/'+timeGoal.toString(),
                     style: TextStyle(fontSize: 18,fontWeight: FontWeight.w300,color: fscolor),),
                 ],
               ),
