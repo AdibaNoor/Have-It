@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:have_it/constants.dart';
 import 'package:have_it/util/habit_tile.dart';
@@ -13,14 +15,30 @@ class _HomeState extends State<Home> {
   List habitList=[
     //[habitName, habitStrted, timeSpent, timeGoal]
     ['Exercise', false, 0,10],
-    ['Code', true, 0,30],
-    ['Cooking', true, 4,50],
-    ['Read', false, 5,20],
+    ['Code', false, 0,30],
+    ['Cooking', false, 0,50],
+    ['Read', false, 0,20],
   ];
   void habitPlayed(int index){
+    var startTime = DateTime.now();
+    var elapsedTime = habitList[index][2];
     setState(() {
       habitList[index][1] = !habitList[index][1];
     });
+    if(habitList[index][1]){
+      Timer.periodic(Duration(seconds: 1), (timer) {
+        setState(() {
+          if(!habitList[index][1]){
+            timer.cancel();
+          }
+
+          var currentTime = DateTime.now();
+          habitList[index][2] = elapsedTime + currentTime.second - startTime.second +
+              60*(currentTime.minute - startTime.minute) +
+              3600*(currentTime.hour - startTime.hour);
+        });
+      });
+    }
   }
   void settingsOpened(int index){
     showDialog(context: context, builder: (context){
