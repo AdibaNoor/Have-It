@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:have_it/constants.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class HabitTile extends StatelessWidget {
-  const HabitTile({Key? key}) : super(key: key);
+  final String habitName;
+  final VoidCallback ontap;
+  final VoidCallback onSettingsTapped;
+  final int timeSpent;
+  final int timeGoal;
+  final bool habitStrted;
+
+  const HabitTile({Key? key,
+    required this.habitName,
+    required this.ontap,
+    required this.onSettingsTapped,
+    required this.timeSpent,
+    required this.timeGoal,
+    required this.habitStrted}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +30,42 @@ class HabitTile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
-              Text('Exercise',style: TextStyle(fontSize: 28,fontWeight: FontWeight.w500),),
-              Text('2/10= 20%'),
+            GestureDetector(
+              onTap: ontap,
+              child: SizedBox(
+                 height: 60,
+                 width: 60,
+                 child: Stack(
+                   children: [
+                     CircularPercentIndicator(
+                       radius: 30,
+                       percent: 0.6,
+                       lineWidth: 10,
+                       progressColor: sccolor,
+                       backgroundColor: trcolor,
+                     ),
+                     //play button
+                     Center(child: Icon(habitStrted? Icons.pause: Icons.play_arrow, color: Colors.white,),)
+                   ],
+                 ),
+               ),
+            ),
+              SizedBox(width: 15,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(habitName,style: TextStyle(fontSize: 28,fontWeight: FontWeight.w500,color: fscolor),),
+                  Text(timeSpent.toString()+'/'+timeGoal.toString(),
+                    style: TextStyle(fontSize: 18,fontWeight: FontWeight.w300,color: fscolor),),
+                ],
+              ),
             ],
           ),
-          Icon(Icons.settings),
+          GestureDetector(
+            onTap: onSettingsTapped,
+              child: Icon(Icons.settings, size: 40,color: fscolor,)),
         ],
       ),
     ),);

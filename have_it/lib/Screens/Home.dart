@@ -25,10 +25,16 @@ class _HomeState extends State<Home> {
       ),
       body: Column(
         children: [
-          HabitTile(),
-          HabitTile(),
-          HabitTile(),
-          HabitTile(),
+          HabitTile(
+              habitName: "Exercise",
+          ontap: (){},
+          onSettingsTapped: (){},
+          habitStrted: true,
+          timeGoal: 10,
+          timeSpent: 6,),
+          // HabitTile(habitName:"Painting"),
+          // HabitTile(habitName: 'Cooking',),
+          // HabitTile(habitName: 'Movie',),
         ],
       ),
     );
