@@ -17,6 +17,18 @@ class _HomeState extends State<Home> {
     ['Cooking', true, 4,50],
     ['Read', false, 5,20],
   ];
+  void habitPlayed(int index){
+    setState(() {
+      habitList[index][1] = !habitList[index][1];
+    });
+  }
+  void settingsOpened(int index){
+    showDialog(context: context, builder: (context){
+      return AlertDialog(
+        title: Text('Settings for '+habitList[index][0]),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,44 +48,18 @@ class _HomeState extends State<Home> {
           itemBuilder: ((context,index){
         return HabitTile(
             habitName: habitList[index][0],
-            ontap: (){},
-            onSettingsTapped: (){},
+            ontap: (){
+              habitPlayed(index);
+            },
+            onSettingsTapped: (){
+              settingsOpened(index);
+            },
             timeSpent: habitList[index][2],
             timeGoal: habitList[index][3],
-            habitStrted: habitList[index][1],); 
-      }))
-      // Column(
-      //   children: [
-      //     HabitTile(
-      //       habitName: habitList[0][0],
-      //       ontap: (){},
-      //       onSettingsTapped: (){},
-      //       habitStrted: habitList[0][1],
-      //       timeSpent: habitList[0][2],
-      //       timeGoal: habitList[0][3],),
-      //     HabitTile(
-      //       habitName: habitList[1][0],
-      //       ontap: (){},
-      //       onSettingsTapped: (){},
-      //       habitStrted: habitList[1][1],
-      //       timeSpent: habitList[1][2],
-      //       timeGoal: habitList[1][3],),
-      //     HabitTile(
-      //       habitName: habitList[2][0],
-      //       ontap: (){},
-      //       onSettingsTapped: (){},
-      //       habitStrted: habitList[2][1],
-      //       timeSpent: habitList[2][2],
-      //       timeGoal: habitList[2][3],),
-      //     HabitTile(
-      //       habitName: habitList[3][0],
-      //       ontap: (){},
-      //       onSettingsTapped: (){},
-      //       habitStrted: habitList[3][1],
-      //       timeSpent: habitList[3][2],
-      //       timeGoal: habitList[3][3],),
-      //   ],
-      // ),
+            habitStrted: habitList[index][1],);
+      }),
+      )
+
     );
   }
 }
